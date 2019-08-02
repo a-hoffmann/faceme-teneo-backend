@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 
-singleUseToken.startServer(SINGLEUSETOKEN_PORT);
-orchestrationLayer.startServer(OLAYER_PORT);
+singleUseToken.startServer(SINGLEUSETOKEN_PORT || 3030);
+orchestrationLayer.startServer(OLAYER_PORT || 3000);
 
 console.log("Now running on "+OLAYER_PORT);
