@@ -1,6 +1,6 @@
 
 
-let AssistantV1 = require('ibm-watson/assistant/v1');
+//let AssistantV1 = require('ibm-watson/assistant/v1');
 const TIE = require('@artificialsolutions/tie-api-client');
 
 // initialize a Teneo client for interacting with TeneoEengine
@@ -36,9 +36,8 @@ let getWatsonResult = (text, conversationPayload, callback) => {
 
             let speech = '';
 
-            for (let text of result['text']) {
-                speech = text + "\n";
-            }
+            
+                speech = result['text'] + "\n";
 
             //Pull out the instructions if they exist, otherwise return and empty JSON object.
             let instructions = result['context'].hasOwnProperty('instructions') ? result['context']['instructions'] : {};
