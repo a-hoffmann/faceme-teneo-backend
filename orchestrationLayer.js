@@ -6,7 +6,7 @@ let processPostRequest = (body, path, callback) =>
 {
     console.log('Process ' + path);
     try {
-        if (path == '/api/v1/watson/converse') {
+        if (path == '/api/v1/teneo/converse') {
             body = JSON.parse(body);
 			//return from nlp layer
             nlp.getConverseResult(body['fm-question'], body['fm-conversation'], (speech, instructions, conversationPayload) => {
