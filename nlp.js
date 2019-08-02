@@ -4,6 +4,9 @@ let AssistantV1 = require('ibm-watson/assistant/v1');
 const TIE = require('@artificialsolutions/tie-api-client');
 
 // initialize a Teneo client for interacting with TeneoEengine
+const {
+  TENEO_ENGINE_URL
+} = process.env;
 const teneoEngineUrl = TENEO_ENGINE_URL;
 
 const teneoApi = TIE.init(teneoEngineUrl);
