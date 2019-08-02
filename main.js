@@ -1,7 +1,12 @@
 let orchestrationLayer = require("./orchestrationLayer.js");
 let singleUseToken = require("./singleUseToken.js");
 
-singleUseToken.startServer(3030);
-orchestrationLayer.startServer(3000);
+const ol = OLAYER_PORT.process.env
+const sut = SINGLEUSETOKEN_PORT.process.env
 
-console.log("Now running");
+singleUseToken.startServer(sut);
+orchestrationLayer.startServer(ol);
+
+
+
+console.log("Now running on "+ol);
