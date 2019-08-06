@@ -22,7 +22,7 @@ let getWatsonResult = (text, conversationPayload, callback) => {
     });*/
 	
     console.log("text : " + text);
-	var message = {text: text} //create message object for use in TIE after
+	var message = {text: text, channel: "facemein"} //create message object for use in TIE after
 
     let contextPayload = (typeof conversationPayload === 'undefined' || conversationPayload === '' || conversationPayload === null) ? JSON.parse("{}") : JSON.parse(conversationPayload);
 
@@ -119,7 +119,7 @@ function createSlackMessage(channel, teneoResponse) {
 
   // populate base message
   message.text = teneoResponse.output.text;
-  message.channel = 'faceme';
+  message.channel = 'facemeout';
   message.context = ''; //empty item for faceme, for now
 
   // check for attachment
