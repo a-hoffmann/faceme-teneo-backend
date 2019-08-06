@@ -26,7 +26,7 @@ let getWatsonResult = (text, conversationPayload, callback) => {
 
     let contextPayload = (typeof conversationPayload === 'undefined' || conversationPayload === '' || conversationPayload === null) ? JSON.parse("{}") : JSON.parse(conversationPayload);
 
-    console.log("contextPayload : " + contextPayload);
+    console.log("contextPayload : " + contextPayload.length);
 //send input and get response
 
 //await handleSlackMessage()
@@ -119,7 +119,7 @@ function createSlackMessage(channel, teneoResponse) {
 
   // populate base message
   message.text = teneoResponse.output.text;
-  message.channel = channel;
+  message.channel = 'faceme';
   message.context = ''; //empty item for faceme, for now
 
   // check for attachment
