@@ -12,7 +12,7 @@ const teneoEngineUrl = TENEO_ENGINE_URL;
 const teneoApi = TIE.init(teneoEngineUrl);
 
 
-let getWatsonResult = (text, conversationPayload, callback) => {
+let getTeneoResult = (text, conversationPayload, callback) => {
 
     console.log('Inside old Watson');
     /*let assistant = new AssistantV1({
@@ -26,7 +26,7 @@ let getWatsonResult = (text, conversationPayload, callback) => {
 
     let contextPayload = (typeof conversationPayload === 'undefined' || conversationPayload === '' || conversationPayload === null) ? JSON.parse("{}") : JSON.parse(conversationPayload);
 
-    console.log("contextPayload : " + contextPayload.length);
+    console.log("contextPayload : " + contextPayload);
 //send input and get response
 
 //await handleSlackMessage()
@@ -40,6 +40,7 @@ let getWatsonResult = (text, conversationPayload, callback) => {
                 speech = result['text'] + "\n";
 
             //Pull out the instructions if they exist, otherwise return and empty JSON object.
+			
             let instructions = result['context'].hasOwnProperty('instructions') ? result['context']['instructions'] : {};
 
             //Always clear out the old instructions otherwise if the NLP does not set them the same will be sent through again.
@@ -162,7 +163,7 @@ function SessionHandler() {
 
 //exports
 module.exports = {
-    getConverseResult: getWatsonResult,
+    getConverseResult: getTeneoResult,
     setEmotion: setEmotion
 
 };

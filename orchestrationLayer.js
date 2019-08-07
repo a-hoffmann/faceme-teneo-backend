@@ -1,5 +1,7 @@
 let server = new require("./server.js");
 let nlp = new require("./nlp.js");
+//test
+let singleUseToken = new require("./singleUseToken.js")
 
 //Handle the post request
 let processPostRequest = (body, path, callback) =>
@@ -16,7 +18,14 @@ let processPostRequest = (body, path, callback) =>
 
             })
 
-        } else {
+        }
+		if (path == '/api/v1/watson/getSingleUseToken') {
+
+            singleUseToken.getSingleUseToken((token) => {
+                callback (token);
+            });
+		}
+		else {
             callback("{}");
         }
     } catch (e) {
