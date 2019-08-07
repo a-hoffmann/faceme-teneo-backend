@@ -21,7 +21,7 @@ let processPostRequest = (body, path, callback) =>
         }
 		if (path == '/api/v1/watson/getSingleUseToken') {
 
-            singleUseToken.getSingleUseToken((token) => {
+            singleUseToken.getSingleUserToken((token) => {
                 callback (token);
             });
 		}

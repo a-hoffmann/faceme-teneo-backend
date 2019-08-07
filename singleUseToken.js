@@ -72,5 +72,5 @@ let startServer = (port) =>
 
 module.exports = {
     startServer: startServer,
-	getSingleUseToken: getSingleUseToken
+	getSingleUserToken: getSingleUserToken
 };
