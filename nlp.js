@@ -38,6 +38,10 @@ let getTeneoResult = (text, conversationPayload, callback) => {
 
             
                 speech = result['text'] + "\n";
+				
+				
+				
+				
 
             //Pull out the instructions if they exist, otherwise return and empty JSON object.
 			
@@ -121,16 +125,27 @@ function createSlackMessage(channel, teneoResponse) {
   // populate base message
   message.text = teneoResponse.output.text;
   message.channel = 'facemeout';
-  message.context = ''; //empty item for faceme, for now
+  message.context = {instructions: {}}
 
   // check for attachment
-  if (teneoResponse.output.parameters.slack) {
+  
+  //TODO:
+  //pass on extra instructions here:
+  if (teneoResponse.output.parameters.emotionalTone) {
+    try {
+      message.context.instructions.emotionalTone = [JSON.parse(teneoResponse.output.parameters.emotionalTone)];
+    } catch (error_parse) {
+      console.error(`Failed when parsing output pm JSON`, error_parse);
+    }
+  }
+  
+  /*if (teneoResponse.output.parameters.slack) {
     try {
       message.attachments = [JSON.parse(teneoResponse.output.parameters.slack)];
     } catch (error_attach) {
       console.error(`Failed when parsing attachment JSON`, error_attach);
     }
-  }
+  }*/
   return message
 }
 
