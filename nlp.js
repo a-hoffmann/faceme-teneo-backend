@@ -141,7 +141,7 @@ function createSlackMessage(channel, teneoResponse) {
   if (teneoResponse.output.parameters.expressionEvent) {
     try {
       message.context.instructions.expressionEvent = JSON.parse(teneoResponse.output.parameters.expressionEvent); 
-	  //[] brackets are set in studio if there are several instructions
+	  //[] brackets are set in Studio if there are several instructions
     } catch (error_parse) {
       console.error(`Failed when parsing output pm JSON`, error_parse);
     }
@@ -153,7 +153,7 @@ function createSlackMessage(channel, teneoResponse) {
       console.error(`Failed when parsing output pm JSON`, error_parse);
     }
   }
-  
+  console.log("full instructive obj "+JSON.stringify(message.context));
   /*if (teneoResponse.output.parameters.slack) {
     try {
       message.attachments = [JSON.parse(teneoResponse.output.parameters.slack)];
