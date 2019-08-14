@@ -140,7 +140,8 @@ function createSlackMessage(channel, teneoResponse) {
   }
   if (teneoResponse.output.parameters.expressionEvent) {
     try {
-      message.context.instructions.expressionEvent = [JSON.parse(teneoResponse.output.parameters.expressionEvent)];
+      message.context.instructions.expressionEvent = JSON.parse(teneoResponse.output.parameters.expressionEvent); 
+	  //[] brackets are set in studio if there are several instructions
     } catch (error_parse) {
       console.error(`Failed when parsing output pm JSON`, error_parse);
     }
