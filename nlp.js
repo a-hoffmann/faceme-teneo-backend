@@ -145,6 +145,13 @@ function createSlackMessage(channel, teneoResponse) {
       console.error(`Failed when parsing output pm JSON`, error_parse);
     }
   }
+  if (teneoResponse.output.parameters.displayHtml) {
+    try {
+      message.context.instructions.displayHtml = JSON.parse(teneoResponse.output.parameters.displayHtml);
+    } catch (error_parse) {
+      console.error(`Failed when parsing output pm JSON`, error_parse);
+    }
+  }
   
   /*if (teneoResponse.output.parameters.slack) {
     try {
