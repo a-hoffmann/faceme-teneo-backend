@@ -14,7 +14,7 @@ const teneoApi = TIE.init(teneoEngineUrl);
 
 let getTeneoResult = (text, conversationPayload, callback) => {
 
-    console.log('Inside old Watson');
+    console.log('getting Teneo result');
     /*let assistant = new AssistantV1({
         iam_apikey: '<API_KEY_HERE>',
         url: 'https://gateway-syd.watsonplatform.net/assistant/api',
@@ -29,9 +29,9 @@ let getTeneoResult = (text, conversationPayload, callback) => {
     console.log("contextPayload : " + contextPayload);
 //send input and get response
 
-//await handleSlackMessage()
+//await handleFacemeMessage()
 	//instead of below
-    handleSlackMessage(sessionHandler, message)
+    handleFacemeMessage(sessionHandler, message)
         .then(result => {
 
             let speech = '';
@@ -63,27 +63,27 @@ let setEmotion = (emotion) => {
     emotionState = emotion;
 }
 
-// initialise session handler, to store mapping between slack 'channel' and engine session
+// initialise session handler, to store mapping between faceme 'channel' and engine session
 const sessionHandler = SessionHandler();
 
 // *** attach listeners to the event adapter ***
 
 // *** send messages to Engine and handle response ***
 /*
-slackEvents.on('message', (message, headers) => {
+facemeEvents.on('message', (message, headers) => {
 
   // only deal with messages that have no subtype (plain messages) and that are not retries
-  if (!message.subtype && !headers["x-slack-retry-reason"]) {
+  if (!message.subtype && !headers["x-faceme-retry-reason"]) {
     // handle initialization failure
-    if (!slack) {
-      return console.error('No slack webclient. Did you provide a valid SLACK_BOT_USER_ACCESS_TOKEN?');
+    if (!faceme) {
+      return console.error('No faceme webclient. Did you provide a valid SLACK_BOT_USER_ACCESS_TOKEN?');
     }
     // send message to engine an return answer
-    handleSlackMessage(sessionHandler, message);
+    handleFacemeMessage(sessionHandler, message);
   }
 });*/
 
-async function handleSlackMessage(sessionHandler, message) {
+async function handleFacemeMessage(sessionHandler, message) {
 
   try {
     console.log(`Got message '${message.text}' from channel ${message.channel}`);
@@ -101,13 +101,13 @@ async function handleSlackMessage(sessionHandler, message) {
     // store mapping between channel and engine sessionId
     await sessionHandler.setSession(message.channel, teneoResponse.sessionId);
 
-    // construct slack message with using the response from engine
-    const slackMessage = createSlackMessage(message.channel, teneoResponse);
+    // construct faceme message with using the response from engine
+    const facemeMessage = createFacemeMessage(message.channel, teneoResponse);
 
 
-	return slackMessage;
-    // send message to slack with engine output text
-    //await sendSlackMessage(slackMessage);
+	return facemeMessage;
+    // send message to faceme with engine output text
+    //await sendFacemeMessage(facemeMessage);
 
   } catch (error) {
     console.error(`Failed when sending input to Teneo Engine @ ${teneoEngineUrl}`, error);
@@ -115,8 +115,8 @@ async function handleSlackMessage(sessionHandler, message) {
 
 }
 
-// create slack message
-function createSlackMessage(channel, teneoResponse) {
+// create faceme message
+function createFacemeMessage(channel, teneoResponse) {
 
   // your bot can use output parameters to populate attachments
   // you would find those in teneoResponse.output.parameters
@@ -154,9 +154,9 @@ function createSlackMessage(channel, teneoResponse) {
     }
   }
   console.log("full instructive obj "+JSON.stringify(message.context));
-  /*if (teneoResponse.output.parameters.slack) {
+  /*if (teneoResponse.output.parameters.faceme) {
     try {
-      message.attachments = [JSON.parse(teneoResponse.output.parameters.slack)];
+      message.attachments = [JSON.parse(teneoResponse.output.parameters.faceme)];
     } catch (error_attach) {
       console.error(`Failed when parsing attachment JSON`, error_attach);
     }
@@ -169,7 +169,7 @@ function createSlackMessage(channel, teneoResponse) {
  * */
 function SessionHandler() {
 
-  // Map the slack user id to the teneo engine session id. 
+  // Map the faceme user id to the teneo engine session id. 
   // This code keeps the map in memory, which is ok for testing purposes
   // For production usage it is advised to make use of more resilient storage mechanisms like redis
   const sessionMap = new Map();
