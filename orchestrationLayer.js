@@ -19,6 +19,17 @@ let processPostRequest = (body, path, callback) =>
             })
 
         }
+		if (path == '/') {
+            body = JSON.parse(body);
+			//return from nlp layer
+            nlp.getConverseResult(body['fm-question'], body['fm-conversation'], (speech, instructions, conversationPayload) => {
+
+                let avatarResponse = {'answer':speech, 'instructions':instructions};
+                callback (JSON.stringify({ "answer": JSON.stringify(avatarResponse), "matchedContext": "", conversationPayload: JSON.stringify(conversationPayload) }));
+
+            })
+
+        }
 		/*if (path == '/api/v1/watson/getSingleUseToken') {
 
             singleUseToken.getSingleUserToken((token) => {
